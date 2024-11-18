@@ -1,0 +1,19 @@
+// Create this file in the local path of your VSCode Project
+// filename: .devcontainer.json
+{
+  "image": "amazon/aws-glue-libs:glue_libs_4.0.0_image_01",
+  "forwardPorts": [3000],
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": ["streetsidesoftware.code-spell-checker"],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.analysis.extraPaths": [
+          "/home/glue_user/aws-glue-libs/PyGlue.zip:/home/glue_user/spark/python/lib/py4j-0.10.9-src.zip:/home/glue_user/spark/python/"
+        ]
+      }
+    }
+  }
+}
