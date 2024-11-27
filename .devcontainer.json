@@ -10,9 +10,7 @@
       "extensions": ["streetsidesoftware.code-spell-checker"],
       "settings": {
         "python.defaultInterpreterPath": "/usr/bin/python3",
-        "python.analysis.extraPaths": [
-          "/home/glue_user/aws-glue-libs/PyGlue.zip:/home/glue_user/spark/python/lib/py4j-0.10.9-src.zip:/home/glue_user/spark/python/"
-        ]
+        "python.analysis.extraPaths": ["/home/glue_user/aws-glue-libs/awsglue:/home/glue_user/aws-glue-libs/PyGlue.zip:/home/glue_user/spark/python/lib/py4j-0.10.9.5-src.zip:/home/glue_user/spark/python/"]
       }
     }
   }
