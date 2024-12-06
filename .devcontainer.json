@@ -3,11 +3,14 @@
 {
   "image": "amazon/aws-glue-libs:glue_libs_4.0.0_image_01",
   "forwardPorts": [3000],
+  "mounts": [
+    "source=${localEnv:HOME}/.aws,target=/home/glue_user/.aws,type=bind"
+  ],
   "customizations": {
     // Configure properties specific to VS Code.
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
-      "extensions": ["streetsidesoftware.code-spell-checker"],
+      "extensions": ["streetsidesoftware.code-spell-checker", "ms-toolsai.jupyter", "ms-python.python", "ms-python.debugpy"],
       "settings": {
         "python.defaultInterpreterPath": "/usr/bin/python3",
         "python.analysis.extraPaths": ["/home/glue_user/aws-glue-libs/awsglue:/home/glue_user/aws-glue-libs/PyGlue.zip:/home/glue_user/spark/python/lib/py4j-0.10.9.5-src.zip:/home/glue_user/spark/python/"]
