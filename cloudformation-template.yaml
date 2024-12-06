@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Glue Job Template with IAM Role
+
+Parameters:
+  GlueJobName:
+    Type: String
+    Default: MyGlueJob
+    Description: Name of the AWS Glue Job
+
+  GlueScriptS3Path:
+    Type: String
+    Description: S3 path to the Glue job script (e.g., s3://my-bucket/path/to/script.py)
+
+  S3BucketName:
+    Type: String
+    Description: S3 bucket name for Glue job resources
+
+Resources:
+  GlueServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${GlueJobName}-Role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: GlueJobPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub "arn:aws:s3:::${S3BucketName}"
+                  - !Sub "arn:aws:s3:::${S3BucketName}/*"
+              - Effect: Allow
+                Action:
+                  - glue:CreateJob
+                  - glue:GetJob
+                  - glue:UpdateJob
+                  - glue:StartJobRun
+                  - glue:GetJobRun
+                  - glue:GetJobRuns
+                  - glue:BatchStopJobRun
+                  - glue:DeleteJob
+                Resource: "*"
+
+  GlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Ref GlueJobName
+      Role: !GetAtt GlueServiceRole.Arn
+      Command:
+        Name: glueetl
+        ScriptLocation: !Ref GlueScriptS3Path
+        PythonVersion: 3
+      MaxRetries: 1
+      MaxCapacity: 1
+      GlueVersion: "4.0"
+      Timeout: 10
+      Tags:
+        Environment: Production
+        Team: DataEngineering
+
+Outputs:
+  GlueJobNameOutput:
+    Description: Name of the created Glue Job
+    Value: !Ref GlueJob
+
+  GlueServiceRoleOutput:
+    Description: ARN of the Glue Service Role
+    Value: !GetAtt GlueServiceRole.Arn

@@ -94,7 +94,7 @@ print("writing to s3")
 mapped_dyf.write(
     connection_type="s3",
     connection_options={
-        "path": "s3://aws-glue-temporary-515951668509-us-east-1/gluesmithnike/persons_parsed.parquet",
+        "path": "s3://aws-glue-temporary-515951668509-us-east-1/glue/persons_parsed.parquet",
         "partitionKeys": []  # Ensures overwriting
         },
     format="parquet" 
