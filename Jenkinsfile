@@ -24,7 +24,7 @@ pipeline {
                         GlueJobName="my-glue-job" GlueScriptS3Path=$S3_KEY
                     """
                 }
-            }GlueJobName, GlueScriptS3Path, S3BucketName
+            }
         }
 
         stage('Upload Glue Job Script to S3') {
