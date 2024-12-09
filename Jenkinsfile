@@ -21,7 +21,7 @@ pipeline {
                         --template-file $TEMPLATE_FILE \
                         --capabilities CAPABILITY_NAMED_IAM \
                         --parameter-overrides S3BucketName=$S3_BUCKET \
-                        GlueJobName="my-glue-job" \ GlueScriptS3Path=$S3_KEY
+                        GlueJobName="my-glue-job" GlueScriptS3Path=$S3_KEY
                     """
                 }
             }GlueJobName, GlueScriptS3Path, S3BucketName
