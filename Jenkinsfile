@@ -8,7 +8,7 @@ pipeline {
         GLUE_SCRIPT_PATH = 'awssample.py' // Path to the Glue job script in the repo
         S3_BUCKET = 'aws-glue-temporary-515951668509-us-east-1' // Replace with your S3 bucket name
         S3_KEY = 'glue/glue-job-script.py' // Path in S3
-    }``
+    }
 
     stages {
         stage('CloudFormation Create/Update') {
