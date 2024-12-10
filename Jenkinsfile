@@ -60,7 +60,7 @@ pipeline {
                         --job-name my-glue-job \
                         --job-update '{"Command": {"ScriptLocation": "s3://$S3_BUCKET/$S3_KEY", \
                                       "Name": "pythonshell", \
-                                      "Role": $glue_role}}'
+                                      "Role": "$glue_role"}}'
                     """
                 }
             }
