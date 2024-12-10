@@ -7,7 +7,7 @@ pipeline {
         TEMPLATE_FILE = 'cloudformation-template.yaml' // Replace with your CloudFormation template file
         GLUE_SCRIPT_PATH = 'awssample.py' // Path to the Glue job script in the repo
         S3_BUCKET = 'aws-glue-temporary-515951668509-us-east-1' // Replace with your S3 bucket name
-        S3_KEY = 'glue/glue-job-script.py' // Path in S3
+        S3_KEY = "$S3_BUCKET/glue/glue-job-script.py" // Path in S3
     }
 
     stages {
@@ -40,11 +40,27 @@ pipeline {
         stage('Update Glue Job Script in Glue Job') {
             steps {
                 script {
+                    // Run the shell script and capture its output
+                    def jsonOutput = sh(
+                        script: """"
+                            aws glue get-job --job-name my-glue-job 
+                            """,
+                        returnStdout: true
+                    ).trim()
+                    
+                    // Parse the JSON output
+                    def parsedJson = readJSON(text: jsonOutput)
+                    // Extract the desired field
+                    def glue_role = parsedJson.Job.Role
+                    echo "Extracted value: ${glue_role}"
+
                     sh """
                     aws glue update-job \
                         --region $AWS_REGION \
                         --job-name my-glue-job \
-                        --job-update '{"Command": {"ScriptLocation": "s3://$S3_BUCKET/$S3_KEY", "Name": "pythonshell"}}'
+                        --job-update '{"Command": {"ScriptLocation": "s3://$S3_BUCKET/$S3_KEY", \
+                                      "Name": "pythonshell"
+                                      "Role": $glue_role}}'
                     """
                 }
             }
