@@ -43,7 +43,7 @@ pipeline {
                     // Run the shell script and capture its output
                     def jsonOutput = sh(
                         script: """"
-                            aws glue get-job --job-name my-glue-job 
+                            aws glue get-job --job-name my-glue-job
                             """,
                         returnStdout: true
                     ).trim()
@@ -59,7 +59,7 @@ pipeline {
                         --region $AWS_REGION \
                         --job-name my-glue-job \
                         --job-update '{"Command": {"ScriptLocation": "s3://$S3_BUCKET/$S3_KEY", \
-                                      "Name": "pythonshell"
+                                      "Name": "pythonshell", \
                                       "Role": $glue_role}}'
                     """
                 }
