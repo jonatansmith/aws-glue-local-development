@@ -58,9 +58,10 @@ pipeline {
                     aws glue update-job \
                         --region $AWS_REGION \
                         --job-name my-glue-job \
-                        --job-update '{"Command": {"ScriptLocation": "s3://$S3_BUCKET/$S3_KEY", \
-                                      "Name": "pythonshell", \
-                                      "Role": "$glue_role"}}'
+                        --job-update '{"Command": \
+                                        { "ScriptLocation": "s3://$S3_BUCKET/$S3_KEY", \
+                                          "Name": "pythonshell"} \
+                                      "Role": "$glue_role"}'
                     """
                 }
             }
