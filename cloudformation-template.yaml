@@ -58,13 +58,13 @@ Resources:
       Name: !Ref GlueJobName
       Role: !GetAtt GlueServiceRole.Arn
       Command:
-        Name: glueetl
+        Name: pythonshell
         ScriptLocation: !Ref GlueScriptS3Path
         PythonVersion: 3
       MaxRetries: 1
       MaxCapacity: 1
       GlueVersion: "4.0"
-      Timeout: 10
+      Timeout: 5
       Tags:
         Environment: Production
         Team: DataEngineering
