@@ -61,7 +61,9 @@ Resources:
         Name: pythonshell
         ScriptLocation: !Ref GlueScriptS3Path
         PythonVersion: 3
-      MaxRetries: 1
+      MaxRetries: 0
+      ExecutionProperty:
+        MaxConcurrentRuns: 1
       MaxCapacity: 1
       GlueVersion: "4.0"
       Timeout: 5
