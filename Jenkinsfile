@@ -40,9 +40,11 @@ pipeline {
         stage('Update Glue Job Script in Glue Job') {
             steps {
                 script {
+                    echo "Retrieving valuesfrom"
+
                     // Run the shell script and capture its output
                     def jsonOutput = sh(
-                        script: """"
+                        script: """
                             aws glue get-job --job-name my-glue-job
                             """,
                         returnStdout: true
