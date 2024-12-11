@@ -61,6 +61,8 @@ Resources:
         Name: pythonshell
         ScriptLocation: !Ref GlueScriptS3Path
         PythonVersion: 3
+      DefaultArguments:
+        "--job-language": "python"
       MaxRetries: 0
       ExecutionProperty:
         MaxConcurrentRuns: 1
