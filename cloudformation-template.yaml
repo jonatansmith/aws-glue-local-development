@@ -73,6 +73,20 @@ Resources:
         Environment: Production
         Team: DataEngineering
 
+  MyJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Command:
+        Name: pythonshell
+        ScriptLocation: !Ref GlueScriptS3Path
+      DefaultArguments:
+        "--job-bookmark-option": "job-bookmark-enable"
+      ExecutionProperty:
+        MaxConcurrentRuns: 2
+      MaxRetries: 0
+      Name: cf-job1
+      Role: !GetAtt GlueServiceRole.Arn
+
 Outputs:
   GlueJobNameOutput:
     Description: Name of the created Glue Job
