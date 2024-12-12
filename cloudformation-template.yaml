@@ -74,11 +74,11 @@ Resources:
   #       Environment: Production
   #       Team: DataEngineering
 
-Outputs:
-  GlueJobNameOutput:
-    Description: Name of the created Glue Job
-    Value: !Ref GlueJob
+# Outputs:
+#   GlueJobNameOutput:
+#     Description: Name of the created Glue Job
+#     Value: !Ref GlueJob
 
-  GlueServiceRoleOutput:
-    Description: ARN of the Glue Service Role
-    Value: !GetAtt GlueServiceRole.Arn
+#   GlueServiceRoleOutput:
+#     Description: ARN of the Glue Service Role
+#     Value: !GetAtt GlueServiceRole.Arn
