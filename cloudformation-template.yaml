@@ -79,6 +79,7 @@ Resources:
       MaxCapacity: 2
       GlueVersion: "5.0"
       WorkerType: "G.1X"
+      NumberOfWorkers: 2
       Tags:
         Environment: Production
         Team: DataEngineering
