@@ -51,11 +51,13 @@ else:
     jobname = "test"
 job.init(jobname, args)
 
+# Datasource from public AWS S3 Bucket available in https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-samples-legislators.html
 dyf = read_json(context, "s3://awsglue-datasets/examples/us-legislators/all/persons.json")
+# Same file, from local filestore. Uncomment and comment previous
 # dyf = read_json(context, "persons.json")
 dyf.printSchema()
-# show df
-print("\n"*10)
+print("\n"*10) # Separator to ease logging 
+print("Glue Dynamic Frame preview")
 dyf.show()
 logger.info("Mapping family_name to last_name")
 mapped_dyf = dyf.apply_mapping([
@@ -69,16 +71,14 @@ mapped_dyf = dyf.apply_mapping([
     ('id', 'string', 'id', 'string'),
     ('death_date', 'string', 'death_date', 'string')
     ])
+print("\n\nSchema with fields renamed: ")
 mapped_dyf.printSchema()
-logger.info("Writing parquet file")
 
-# mapped_dyf.write(
-#     connection_type="s3",
-#     connection_options={
-#         "path": "s3://aws-glue-temporary-515951668509-us-east-1/persons_parsed.parquet"
-#         },
-#     format="parquet")
-print("::\n"*10)
+# Convert to DataFrame
+spark_df = mapped_dyf.toDF()
+print("Spark Data Frame preview")
+spark_df.show()
+logger.info("Writing parquet file")
 log_memory_usage()  # Log at the start
 
 mapped_dyf.write(
@@ -89,16 +89,16 @@ mapped_dyf.write(
         },
     format="parquet" 
     )
-print("writing to s3")
+# print("writing parquet to s3")
 
-mapped_dyf.write(
-    connection_type="s3",
-    connection_options={
-        "path": "s3://aws-glue-temporary-515951668509-us-east-1/glue/persons_parsed.parquet",
-        "partitionKeys": []  # Ensures overwriting
-        },
-    format="parquet" 
-    )
+# mapped_dyf.write(
+#     connection_type="s3",
+#     connection_options={
+#         "path": "s3://aws-glue-temporary-515951668509-us-east-1/glue/persons_parsed.parquet",
+#         "partitionKeys": []  # Ensures overwriting
+#         },
+#     format="parquet" 
+#     )
 
 # n_df = mapped_dyf.toDF()
 # n_df.write.parquet("persons.parquet", mode="overwrite")
