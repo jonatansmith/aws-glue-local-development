@@ -52,26 +52,27 @@ Resources:
                   - glue:DeleteJob
                 Resource: "*"
 
-  GlueJob:
-    Type: AWS::Glue::Job
-    Properties:
-      Name: !Ref GlueJobName
-      Role: !GetAtt GlueServiceRole.Arn
-      Command:
-        Name: pythonshell
-        ScriptLocation: !Ref GlueScriptS3Path
-        PythonVersion: "3.9"
-      DefaultArguments:
-        "--job-language": "python"
-      MaxRetries: 0
-      ExecutionProperty:
-        MaxConcurrentRuns: 1
-      MaxCapacity: 1
-      GlueVersion: "4.0"
-      Timeout: 5
-      Tags:
-        Environment: Production
-        Team: DataEngineering
+  # GlueJob2:
+  #   Type: AWS::Glue::Job
+  #   Properties:
+  #     Name: !Ref GlueJobName
+  #     Timeout: 5
+  #     Role: !GetAtt GlueServiceRole.Arn
+  #     Command:
+  #       Name: pythonshell
+  #       ScriptLocation: !Ref GlueScriptS3Path
+  #       PythonVersion: "3.9"
+  #     DefaultArguments:
+  #       "--job-language": "python"
+  #     MaxRetries: 0
+  #     ExecutionProperty:
+  #       MaxConcurrentRuns: 1
+  #     MaxCapacity: 1
+  #     GlueVersion: "4.0"
+      
+  #     Tags:
+  #       Environment: Production
+  #       Team: DataEngineering
 
 Outputs:
   GlueJobNameOutput:
