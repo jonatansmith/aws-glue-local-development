@@ -52,33 +52,44 @@ Resources:
                   - glue:DeleteJob
                 Resource: "*"
 
-  # GlueJob2:
-  #   Type: AWS::Glue::Job
-  #   Properties:
-  #     Name: !Ref GlueJobName
-  #     Timeout: 5
-  #     Role: !GetAtt GlueServiceRole.Arn
-  #     Command:
-  #       Name: pythonshell
-  #       ScriptLocation: !Ref GlueScriptS3Path
-  #       PythonVersion: "3.9"
-  #     DefaultArguments:
-  #       "--job-language": "python"
-  #     MaxRetries: 0
-  #     ExecutionProperty:
-  #       MaxConcurrentRuns: 1
-  #     MaxCapacity: 1
-  #     GlueVersion: "4.0"
-      
-  #     Tags:
-  #       Environment: Production
-  #       Team: DataEngineering
+  GlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Ref GlueJobName
+      Timeout: 5
+      Role: !GetAtt GlueServiceRole.Arn
+      Command:
+        Name: glueetl
+        ScriptLocation: !Ref GlueScriptS3Path
+        PythonVersion: "3"
+      DefaultArguments:
+        "--job-language": "python"
+        "--enable-observability-metrics": "true"
+        "--TempDir": !Sub "${S3BucketName}/temporary/"
+        "--enable-metrics": "true"
+        "--job-bookmark-option": "job-bookmark-disable"
+        "--enable-job-insights": "true"
+        "--enable-glue-datacatalog": "true"
+        "--spark-event-logs-path":  !Sub "${S3BucketName}/sparkHistoryLogs/"
+        "--enable-spark-ui": "true"
+        "--enable-continuous-cloudwatch-log": "true"
+      MaxRetries: 0
+      ExecutionProperty:
+        MaxConcurrentRuns: 1
+      MaxCapacity: 2
+      GlueVersion: "5.0"
+      WorkerType: "G.1X"
+      AllocatedCapacity: 2
 
-# Outputs:
-#   GlueJobNameOutput:
-#     Description: Name of the created Glue Job
-#     Value: !Ref GlueJob
+      Tags:
+        Environment: Production
+        Team: DataEngineering
 
-#   GlueServiceRoleOutput:
-#     Description: ARN of the Glue Service Role
-#     Value: !GetAtt GlueServiceRole.Arn
+Outputs:
+  GlueJobNameOutput:
+    Description: Name of the created Glue Job
+    Value: !Ref GlueJob
+
+  GlueServiceRoleOutput:
+    Description: ARN of the Glue Service Role
+    Value: !GetAtt GlueServiceRole.Arn
