@@ -176,4 +176,4 @@ print(("*"*20+"\n")*10)
 
 end_time = time.time()
 elapsed_time = end_time - start_time
-print(f"Finished in {elapsed_time} seconds")
+print(f"Finished in {elapsed_time} seconds. Its is pretty fast, hun?")
