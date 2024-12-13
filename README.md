@@ -59,7 +59,7 @@ docker run  --name jenkins-blueocean \
   --volume jenkins-docker-certs:/certs/client:ro \
   myjenkins-blueocean:2.479.2-1
 ```
-1. Open http://localhost:8080 to ogin with admin user credentials (username:admin, password:available in docker logs)
+1. Open http://localhost:8080 to login with admin user credentials (username:admin, password:available in docker logs)
 1. Install recommended Plugins
 
 ## Known issues
