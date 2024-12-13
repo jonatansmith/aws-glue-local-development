@@ -12,7 +12,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)  # You can set it to DEBUG, INFO, WARN, etc.
 
 print("Started")
-logger.info(f"P R O C E S S   S T A R T E D ")
+logger.info("P R O C E S S   S T A R T E D ")
 start_time = time.time()
 import psutil
 import os
