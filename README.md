@@ -37,7 +37,11 @@ git clone <this-repo-url>
 
 ## Glue Job Example
 The `awssample.py` file is a sample script for a Glue Job that we can use to test our environment. If you want to test the S3 parquet writing, it requires a S3 bucket to write Parquet Files. 
+### Run Example in Jupyter
+Right click in the file `awssample.py` and choose `Run Current File in Interactive Window`
 
+## More examples from AWS
+More examples and commands available at https://aws.amazon.com/blogs/big-data/building-an-aws-glue-etl-pipeline-locally-without-an-aws-account/
 
 ## Jenkins Pipeline
 To run the pipeline from this [Jenkinsfile](./Jenkinsfile) you can use your own Jenkins Server or run a container-based with the [Jenkins Docker](./jenkins/Dockerfile)
@@ -61,6 +65,7 @@ docker run  --name jenkins-blueocean \
 ```
 1. Open http://localhost:8080 to login with admin user credentials (username:admin, password:available in docker logs)
 1. Install recommended Plugins
+1. For more information go to https://www.jenkins.io/doc/book/installing/docker/
 
 ## Known issues
 ### Memory exaustion
